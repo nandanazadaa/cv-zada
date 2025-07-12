@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
-import profileImage from '/zada.png'; // Pastikan path ini benar! Atau ganti ke /profile-cosmic.png
+import profileImage from '/zada.png';
 
 // States for About Section Parallax
 const parallaxOffset = ref(0);

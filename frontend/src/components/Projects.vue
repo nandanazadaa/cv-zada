@@ -33,27 +33,36 @@ onMounted(async () => {
     console.log('Projects fetched from API:', projects.value);
   } catch (error) {
     console.error('Gagal mengambil data proyek:', error)
+    // Updated fallback projects data to match your screenshot and new requirements
     projects.value = [
       {
-        title: 'Galderma Indonesia (Cetaphil)',
+        title: 'Galderma Indonesia - Cetaphil',
         image_url: '/cetaphil.jpg',
-        description: 'An interactive stellar dashboard for visualizing sales constellations and cosmic activity data, illuminating key performance indicators across the galaxy.',
+        description: 'Dashboard interaktif untuk visualisasi data penjualan dan sales activity.',
         tech: ['Flutter', 'Laravel', 'MySQL'],
-        github: '#', // GitHub link remains for data, but button is removed
-        live: '#',   // Live link remains for data, but button is removed
+        github: '#',
+        live: '#',
       },
       {
         title: 'Cosmic Task Manager (Simember)',
         image_url: '/simember.PNG',
-        description: 'An astral application to manage daily missions with integrated planetary reminders and categorized star systems, ensuring no task is lost in the void.',
+        description: 'Aplikasi untuk mengelola tugas harian dengan fitur pengingat dan kategori.',
         tech: ['Codeigniter 3', 'Mysql'],
+        github: '#',
+        live: '#',
+      },
+      {
+        title: 'Website Toko Online', // Project from screenshot
+        image_url: '/toko-online.png', // Assuming this image path
+        description: 'Platform e-commerce dengan fitur keranjang belanja.',
+        tech: ['Vue.js', 'Laravel', 'MySQL'], // Based on screenshot/common stack
         github: '#',
         live: '#',
       },
       {
         title: 'Interstellar Marketplace (Vistore.id)',
         image_url: '/vistore.jpg',
-        description: 'A galactic e-commerce platform for trading digital artifacts and cosmic resources, featuring dynamic inventory management and secure interstellar transactions.',
+        description: 'Dashboard interaktif untuk visualisasi data penjualan dan sales activity.',
         tech: ['Flutter','Codeigniter 3', 'Mysql'],
         github: '#',
         live: '#',
@@ -162,17 +171,3 @@ onMounted(async () => {
     </transition>
   </section>
 </template>
-
-<style scoped>
-/* New clip-path for project images (Optional: if you want a custom shape) */
-.project-image-clip {
-  /* This creates a slightly unique, asymmetrical shape */
-  clip-path: polygon(0% 0%, 100% 0%, 100% 90%, 85% 100%, 15% 100%, 0% 90%);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-}
-
-/* This keyframe is defined globally in main.css and tailwind.config.js */
-/* If you use fade-in-scale, ensure it's imported or defined here if scoped */
-/* @keyframes fadeInScale { ... } */
-/* .fade-in-scale { ... } */
-</style>
