@@ -36,17 +36,6 @@ app.get("/api/test", async (req, res) => {
   }
 });
 
-// Get education data from database
-app.get("/api/education", async (req, res) => {
-  try {
-    const result = await pool.query('SELECT * FROM education ORDER BY id DESC');
-    res.json(result.rows);
-  } catch (error) {
-    console.error('Error fetching education:', error);
-    res.status(500).json({ error: 'Failed to fetch education data', details: error.message });
-  }
-});
-
 // Get skills data from database (grouped by categories)
 app.get("/api/skills", async (req, res) => {
   try {
@@ -121,11 +110,4 @@ app.get("/api/projects", async (req, res) => {
   }
 });
 
-// For local testing (optional, not used by Vercel serverless functions)
-// const PORT = process.env.PORT || 3000;
-// app.listen(PORT, () => {
-//   console.log(`Server is running on port ${PORT}`);
-// });
-
-// Export for Vercel
 module.exports = app;

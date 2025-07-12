@@ -34,9 +34,7 @@ INSERT INTO projects (id, title, description, image_url, github_url, live_url) V
 INSERT INTO projects (id, title, description, image_url, github_url, live_url) VALUES
 (2, 'Cosmic Task Manager (Simember)', 'Aplikasi untuk mengelola tugas harian dengan fitur pengingat dan kategori.', '/simember.PNG', 'https://github.com/username/task-app', 'https://task-app-demo.com') ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title, description = EXCLUDED.description, image_url = EXCLUDED.image_url, github_url = EXCLUDED.github_url, live_url = EXCLUDED.live_url, created_at = CURRENT_TIMESTAMP;
 INSERT INTO projects (id, title, description, image_url, github_url, live_url) VALUES
-(3, 'Website Toko Online', 'Platform e-commerce dengan fitur keranjang belanja.', '/toko-online.png', 'https://github.com/username/toko-online', 'https://toko-online-demo.com') ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title, description = EXCLUDED.description, image_url = EXCLUDED.image_url, github_url = EXCLUDED.github_url, live_url = EXCLUDED.live_url, created_at = CURRENT_TIMESTAMP;
-INSERT INTO projects (id, title, description, image_url, github_url, live_url) VALUES
-(4, 'Interstellar Marketplace (Vistore.id)', 'Platform e-commerce untuk jual beli digital artifacts dan sumber daya kosmik.', '/vistore.jpg', 'https://github.com/username/vistore', 'https://vistore-demo.com') ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title, description = EXCLUDED.description, image_url = EXCLUDED.image_url, github_url = EXCLUDED.github_url, live_url = EXCLUDED.live_url, created_at = CURRENT_TIMESTAMP;
+(3, 'Interstellar Marketplace (Vistore.id)', 'Platform e-commerce untuk jual beli digital artifacts dan sumber daya kosmik.', '/vistore.jpg', 'https://github.com/username/vistore', 'https://vistore-demo.com') ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title, description = EXCLUDED.description, image_url = EXCLUDED.image_url, github_url = EXCLUDED.github_url, live_url = EXCLUDED.live_url, created_at = CURRENT_TIMESTAMP;
 
 
 -- Data Project Technologies (Sesuaikan project_id dengan ID proyek di atas)

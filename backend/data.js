@@ -56,15 +56,6 @@ const projects = [
         github: '#',
         live: '#',
     },
-    // Add your "Website Toko Online" project here if it's not dynamic from DB
-    {
-        title: 'Website Toko Online',
-        image_url: '/toko-online.png', // Assuming you'll add an image for this
-        description: 'Platform e-commerce dengan fitur keranjang belanja.',
-        tech: ['Vue.js', 'Laravel', 'MySQL'],
-        github: '#', // Replace with actual GitHub link
-        live: '#',   // Replace with actual live demo link
-    }
 ];
 
 module.exports = { educationHistory, skillCategories, projects };
