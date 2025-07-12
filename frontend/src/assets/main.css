@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* General fade-in animation for overall content (used in other sections) */
+.fade-in-content {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeIn 1.2s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Galaxy Glow Animation for Sections (from previous sections) */
+@keyframes galaxy-glow-slow {
+  0% { transform: scale(1) rotate(0deg); opacity: 0.15; }
+  33% { transform: scale(1.05) rotate(5deg); opacity: 0.2; }
+  66% { transform: scale(0.95) rotate(-5deg); opacity: 0.1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 0.15; }
+}
+
+.animate-galaxy-glow-slow {
+  animation: galaxy-glow-slow 20s ease-in-out infinite alternate;
+}
+
+/* Star Particle Styles (for Hero section) */
+.star-particle {
+  background-color: white;
+  border-radius: 50%;
+  box-shadow: 0 0 5px rgba(255, 165, 0, 0.5), 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+/* Particle Sizes */
+.size-1 { width: 2px; height: 2px; }
+.size-2 { width: 3px; height: 3px; }
+.size-3 { width: 4px; height: 4px; }
+
+/* Animation for the particles */
+@keyframes star-twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(0.8); }
+  50% { opacity: 0.8; transform: scale(1.2); }
+}
+
+.animate-star-twinkle {
+  animation: star-twinkle 4s ease-in-out infinite alternate;
+}
+
+/* Custom blink animation for cursor */
+@keyframes cursor-blink {
+  0%, 100% { border-color: transparent; }
+  50% { border-color: #FB923C; /* Tailwind's orange-400 */ }
+}
+
+.animate-cursor-blink {
+  animation: cursor-blink 1.2s step-end infinite;
+}
+
+/* Horizontal bounce for arrows */
+@keyframes horizontal-bounce {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(8px);
+  }
+}
+
+.animate-horizontal-bounce {
+  animation: horizontal-bounce 1.5s ease-in-out infinite alternate;
+}
+
+/* Slower bounce for the scroll indicator */
+@keyframes bounce-slow {
+  0%, 100% {
+    transform: translateY(-50%);
+    animation-timing-function: cubic-bezier(8, 0, 1, 1);
+  }
+  50% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 2s infinite;
+}
+
+/* Custom Profile Image Shape (About Section) */
+.custom-profile-shape {
+  clip-path: ellipse(50% 60% at 50% 50%);
+}
+
+/* Ensure the image fills the custom shape */
+.custom-profile-img {
+  clip-path: inherit;
+}
+
+/* Ensure border follows the custom shape */
+.custom-profile-border {
+  clip-path: inherit;
+  border-style: solid;
+}
