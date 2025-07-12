@@ -1,8 +1,3 @@
-const educationHistory = [
-    { id: 1, period: '2023 - Sekarang', institution: 'Universitas Amikom Yogyakarta', major: 'S1 - Informatika' },
-    { id: 2, period: '2020 - 2023', institution: 'SMKN 7 Samarinda', major: 'Rekayasa Perangkat Lunak' }
-];
-
 const skillCategories = [
     {
         title: "Frontend",

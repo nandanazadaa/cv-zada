@@ -34,16 +34,6 @@ app.get("/api/test", async (req, res) => {
   }
 });
 
-// Get education data from database
-app.get("/api/education", async (req, res) => {
-  try {
-    const result = await pool.query('SELECT * FROM education ORDER BY id DESC');
-    res.json(result.rows);
-  } catch (error) {
-    console.error('Error fetching education:', error);
-    res.status(500).json({ error: 'Failed to fetch education data' });
-  }
-});
 
 // Get skills data from database (grouped by categories)
 app.get("/api/skills", async (req, res) => {
@@ -93,27 +83,38 @@ app.get("/api/skills", async (req, res) => {
   }
 });
 
-// Get projects data from database
 app.get("/api/projects", async (req, res) => {
   try {
-    const projectsResult = await pool.query('SELECT * FROM projects ORDER BY id DESC');
-    const projects = projectsResult.rows;
-    
-    console.log('Projects from database:', projects); // Debug log
-    
+    // ORDER BY id ASC to match frontend expectation for consistent order (if any)
+    const projectsResult = await pool.query('SELECT * FROM projects ORDER BY id ASC');
+    let projects = projectsResult.rows;
+
+    console.log('Projects from database (before tech fetch):', projects);
+
     // Get technologies for each project
     for (let project of projects) {
       const techResult = await pool.query(
-        'SELECT technology FROM project_technologies WHERE project_id = $1',
+        'SELECT technology FROM project_technologies WHERE project_id = $1 ORDER BY technology ASC',
         [project.id]
       );
       project.tech = techResult.rows.map(row => row.technology);
+      console.log(`Technologies for project ${project.id} (${project.title}):`, project.tech);
     }
     
+    // Add a filter here as well, in case DB contains problematic image URLs.
+    // This is a double-check, client-side filter should still be active.
+    projects = projects.filter(p =>
+      p.title &&
+      p.image_url &&
+      !p.image_url.includes('placehold.co') &&
+      p.tech && p.tech.length > 0
+    );
+    console.log('Projects from database (after server-side filter):', projects);
+
     res.json(projects);
   } catch (error) {
     console.error('Error fetching projects:', error);
-    res.status(500).json({ error: 'Failed to fetch projects data' });
+    res.status(500).json({ error: 'Failed to fetch projects data', details: error.message });
   }
 });
 

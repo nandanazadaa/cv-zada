@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
-import SectionTitle from './SectionTitle.vue' // Make sure SectionTitle.vue exists
+import SectionTitle from './SectionTitle.vue'
 
 const projects = ref([])
 
@@ -29,15 +29,59 @@ function closeImagePopup() {
 onMounted(async () => {
   try {
     const response = await axios.get('/api/projects')
-    projects.value = response.data
-    console.log('Projects fetched from API:', projects.value);
+    // Filter out any projects that are missing essential data or have problematic image URLs
+    // Only keep projects that have a title AND a valid looking image_url AND some tech
+    projects.value = response.data.filter(p =>
+      p.title &&
+      p.image_url &&
+      !p.image_url.includes('placehold.co') && // Exclude any remaining generic placeholders
+      p.tech && p.tech.length > 0 // Ensure tech array exists and is not empty
+    );
+    console.log('Projects fetched from API (filtered):', projects.value);
+
+    // If no projects or very few projects are fetched/filtered from API,
+    // consider loading a specific subset of fallback data to ensure something is displayed.
+    if (projects.value.length < 3) { // Adjust '3' based on how many projects you MUST show
+      console.warn("API returned insufficient valid projects. Supplementing with specific fallback data.");
+      // This is a safety net. If API returns less than N projects, supplement with known good ones.
+      // Or, if you always want specific projects, use this as primary.
+      projects.value = [
+        {
+          title: 'Galderma Indonesia - Cetaphil',
+          image_url: '/cetaphil.jpg',
+          description: 'Dashboard interaktif untuk visualisasi data penjualan dan sales activity.',
+          tech: ['Flutter', 'Laravel', 'MySQL'],
+          github: '#',
+          live: '#',
+        },
+        {
+          title: 'Cosmic Task Manager (Simember)',
+          image_url: '/simember.PNG',
+          description: 'Aplikasi untuk mengelola tugas harian dengan fitur pengingat dan kategori.',
+          tech: ['Codeigniter 3', 'Mysql'],
+          github: '#',
+          live: '#',
+        },
+        {
+          title: 'Interstellar Marketplace (Vistore.id)',
+          image_url: '/vistore.jpg',
+          description: 'Dashboard interaktif untuk visualisasi data penjualan dan sales activity.',
+          tech: ['Flutter','Codeigniter 3', 'Mysql'],
+          github: '#',
+          live: '#',
+        }
+      ];
+      console.log('Using fallback projects data, containing 3 desired projects.');
+    }
+
+
   } catch (error) {
-    console.error('Gagal mengambil data proyek:', error)
-    // Updated fallback projects data to match your screenshot and new requirements
+    console.error('Gagal mengambil data proyek dari API:', error)
+    // Fallback projects data - ONLY THE 3 PROJECTS YOU WANT (cleaned up)
     projects.value = [
       {
         title: 'Galderma Indonesia - Cetaphil',
-        image_url: '/cetaphil.jpg',
+        image_url: '/cetaphil.jpg', // Make sure this file exists in /public
         description: 'Dashboard interaktif untuk visualisasi data penjualan dan sales activity.',
         tech: ['Flutter', 'Laravel', 'MySQL'],
         github: '#',
@@ -45,29 +89,22 @@ onMounted(async () => {
       },
       {
         title: 'Cosmic Task Manager (Simember)',
-        image_url: '/simember.PNG',
+        image_url: '/simember.PNG', // Make sure this file exists in /public
         description: 'Aplikasi untuk mengelola tugas harian dengan fitur pengingat dan kategori.',
         tech: ['Codeigniter 3', 'Mysql'],
         github: '#',
         live: '#',
       },
       {
-        title: 'Website Toko Online', // Project from screenshot
-        image_url: '/toko-online.png', // Assuming this image path
-        description: 'Platform e-commerce dengan fitur keranjang belanja.',
-        tech: ['Vue.js', 'Laravel', 'MySQL'], // Based on screenshot/common stack
-        github: '#',
-        live: '#',
-      },
-      {
         title: 'Interstellar Marketplace (Vistore.id)',
-        image_url: '/vistore.jpg',
+        image_url: '/vistore.jpg', // Make sure this file exists in /public
         description: 'Dashboard interaktif untuk visualisasi data penjualan dan sales activity.',
         tech: ['Flutter','Codeigniter 3', 'Mysql'],
         github: '#',
         live: '#',
       }
     ]
+    console.log('API call failed. Using fallback projects data, containing only 3 projects.');
   }
 })
 </script>
@@ -110,7 +147,7 @@ onMounted(async () => {
               ]"
               @click="openImagePopup(project.image_url, project.title)"
             >
-            <img :src="project.image_url" :alt="project.title" class="w-full h-64 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/1F2937/FFFFFF?text=Cosmic+Project'"/>
+            <img :src="project.image_url" :alt="project.title" class="w-full h-64 object-cover"/>
             <div class="absolute inset-0 bg-gradient-to-t from-space-dark/70 to-transparent group-hover:from-space-dark/80 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
                 <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
             </div>
